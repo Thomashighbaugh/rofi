@@ -1,261 +1,521 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ca0310962a7c4b829d0c57f1ab023531)](https://app.codacy.com/app/davatorium/rofi?utm_source=github.com&utm_medium=referral&utm_content=davatorium/rofi&utm_campaign=Badge_Grade_Settings)
-[![Build Status](https://travis-ci.org/davatorium/rofi.svg?branch=master)](https://travis-ci.org/davatorium/rofi)
-[![codecov.io](https://codecov.io/github/davatorium/rofi/coverage.svg?branch=master)](https://codecov.io/github/davatorium/rofi?branch=master)
-[![Issues](https://img.shields.io/github/issues/davatorium/rofi.svg)](https://github.com/davatorium/rofi/issues)
-[![Forks](https://img.shields.io/github/forks/davatorium/rofi.svg)](https://github.com/davatorium/rofi/network)
-[![Stars](https://img.shields.io/github/stars/davatorium/rofi.svg)](https://github.com/davatorium/rofi/stargazers)
-[![Downloads](https://img.shields.io/github/downloads/davatorium/rofi/total.svg)](https://github.com/davatorium/rofi/releases)
-[![Coverity](https://scan.coverity.com/projects/3850/badge.svg)](https://scan.coverity.com/projects/davedavenport-rofi)
-[![Forum](https://img.shields.io/badge/forum-online-green.svg)](https://reddit.com/r/qtools/)
+# Rofi Applets & Menus
 
-# A window switcher, Application launcher and dmenu replacement
+<p align="left">
+  <img src="https://img.shields.io/badge/Maintained%3F-Yes-blueviolet?style=flat-square">
+  <img src="https://img.shields.io/github/license/adi1090x/rofi?style=flat-square">
+  <img src="https://img.shields.io/github/stars/adi1090x/rofi?color=red&style=flat-square">
+  <img src="https://img.shields.io/github/forks/adi1090x/rofi?style=flat-square">
+  <img src="https://img.shields.io/github/issues/adi1090x/rofi?style=flat-square">
+</p>
 
-**Rofi** started as a clone of simpleswitcher, written by [Sean Pringle](http://github.com/seanpringle/simpleswitcher) - a
-popup window switcher roughly based on [superswitcher](http://code.google.com/p/superswitcher/).
-Simpleswitcher laid the foundations, and therefore Sean Pringle deserves most of the credit for this tool. **Rofi**
-(renamed, as it lost the *simple* property) has been extended with extra features, like an application launcher and 
-ssh-launcher, and can act as a drop-in dmenu replacement, making it a very versatile tool.
+<p align="left">
+<a href="https://www.buymeacoffee.com/adi1090x"><img src="https://raw.githubusercontent.com/adi1090x/files/master/other/bmac.png" alt="Buy Me A Coffee"></a>
+<a href="https://ko-fi.com/adi1090x"><img src="https://raw.githubusercontent.com/adi1090x/files/master/other/kofi.png" alt="Support me on ko-fi"></a>
+</p>
 
-**Rofi**, like dmenu, will provide the user with a textual list of options where one or more can be selected.
-This can either be running an application, selecting a window, or options provided by an external script.
+A collection of custom *applets* and *menus* made using [rofi](https://github.com/davatorium/rofi) and its dmenu emulation.
 
-Its main features are:
+|Menus|Applets|
+|-|-|
+|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/menus/0.gif)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/applets/0.gif)|
 
- * Fully configurable keyboard navigation
- * Type to filter
-    - Tokenized: type any word in any order to filter
-    - Case insensitive (togglable)
-    - Support for fuzzy-, regex-, and glob matching
- * UTF-8 enabled
-    - UTF-8-aware string collating
-    - International keyboard support (`e -> è)
- * RTL language support
- * Cairo drawing and Pango font rendering
- * Built-in modes:
-    - Window switcher mode
-        - EWMH compatible WM
-    - Application launcher
-    - Desktop file application launcher
-    - SSH launcher mode
-    - Combi mode, allowing several modes to be merged into one list
- * History-based ordering — last 25 choices are ordered on top based on use (optional)
- * Levenshtein distance ordering of matches (optional)
- * Drop-in dmenu replacement
-    - Many added improvements
- * Easily extensible using scripts
- * Theming
+|Launchers|Sidemenus|
+|-|-|
+|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git.gif)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/android.gif)|
 
-**Rofi** has several built-in modes implementing common use cases and can be extended by scripts (either called from
-**Rofi** or calling **Rofi**).
+<details>
+<summary>Quick Links</summary>
 
-Below is a list of the different modes:
+- [Installation](https://github.com/adi1090x/rofi#installation)
+- [Album](https://www.buymeacoffee.com/adi1090x/posts)
+- [Applets](https://github.com/adi1090x/rofi#applets)
+- [Menus](https://github.com/adi1090x/rofi#menus)
+- [Sidemenus](https://github.com/adi1090x/rofi#android-style-sidemenus)
+- [Launchers](https://github.com/adi1090x/rofi#app-launchers)
+- [Ribbon](https://github.com/adi1090x/rofi#rofi-ribbon-launchers-rofi-git)
+- [Slates](https://github.com/adi1090x/rofi#rofi-slates-rofi-git)
+- [Powermenu](https://github.com/adi1090x/rofi#rofi-powermenu-rofi-git)
+- [Colorschemes](https://github.com/adi1090x/rofi#colorschemes)
+- [Usage](https://github.com/adi1090x/rofi#tips)
+  * [Polybar](https://github.com/adi1090x/rofi#use-with-polybar)
+  * [I3wm](https://github.com/adi1090x/rofi#use-with-i3)
+  * [Openbox](https://github.com/adi1090x/rofi#use-with-openbox)
 
-## Window Switcher
+</details>
 
-![Window List](https://davatorium.github.io/rofi/images/rofi/window-list.png)
+### Dependencies
 
-The window switcher shows the following informations in columns (can be customized):
+| Applets/Menus       | Package(s)                                                   | Note   |
+|------------|--------------------------------------------------------------|-----------|
+| Apps       | `termite`, `thunar`, `geany`, `firefox`, `lxmusic`, `xfce4-settings-manager` | Or any other softwares you use most, just change this in *~/.config/rofi/scripts/apps.sh* & also in *menu*.|
+| Backlight  | `xbacklight`, `dunst`  | Adjust brightness & Notify. |
+| Battery  | `acpi` & `xfce4-power-manager-settings` | To get battery info & launch power manager.|
+| MPD        | `mpd` and `mpc`  | `mpc` is a cli based client for `mpd`.|
+| Network    | `dnsutils`, `nmcli`, `nmtui`, `bmon`, `nm-connection-editor` & `termite` | `Termite` is required to open `nmtui` & `bmon`, or any other terminal you use, just change this in *~/.config/rofi/scripts/network.sh* & also in *menu*. |
+| Powermenu      | `systemctl`, `i3lock` | By default `systemctl` is used for most actions, `i3lock` is used for locking, `openbox --exit` is used to log out. you might want to change these commands to match your setup. |
+| Quicklinks | `firefox` (or `chromium`) | By default `firefox` is used to open links, you can use any other browser if you want, change accordingly. |
+| Screenshot | `scrot` `maim` & `viewnior` | `scrot` to take shot & `viewnior` to open it after taking screenshot, you can change to whatever you use. |
+| Time | - | - |
+| Volume | `amixer` | To set the volume. |
 
-1. Desktop name
-2. Window class
-3. Window title
+### Fonts
 
-Window mode features:
++ **Comfortaa** Used for normal text, ([preview](https://www.dafont.com/comfortaa.font) and [source](https://www.deviantart.com/aajohan/art/Comfortaa-font-105395949)).
++ **Hurmit Nerd Font Mono** Used for icons, ([preview](https://app.programmingfonts.org/#hermit) and [source](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Hermit)).
++ **Feather** For icons used in android style sidemenus, [Here](https://github.com/adi1090x/rofi/blob/master/fonts/feather.ttf)
++ **Fantasque** For App launchers, [Here](https://github.com/adi1090x/rofi/blob/master/fonts)
++ **Iosevka** For App launchers, [Here](https://github.com/adi1090x/rofi/blob/master/fonts)
++ **Noto Sans** For Some App launchers, [Here](https://github.com/googlefonts/noto-fonts)
 
- * Closing applications with `Shift-Delete`
- * Custom command with `Shift-Return`
+**Warning:** Do not change the `@icon-font` variable to another font, or you will end up messing with all applets/menus layout.
 
+### Installation
 
-## Application launcher
++ First of all make sure you have `rofi` installed:
+``` bash
+# Arch / Arch-based
+pacman -S rofi
 
-![run mode](https://davatorium.github.io/rofi/images/rofi/run-dialog.png)
+# Debian / Ubuntu
+apt-get install rofi
 
-The run mode allows users to quickly search for and launch a program.
-
-Run mode features:
-
- * `Shift-Return` to run the selected program in a terminal
- * Favorites list, with frequently used programs sorted on top
- * Custom entries, like aliases, added by executing a command
-
-
-## Desktop File Application launcher
-
-The desktop run mode allows users to quickly search and launch an application from the *freedesktop.org* Desktop
-Entries. These are used by most Desktop Environments to populate launchers and menus.
-Drun mode features:
-
- * Favorites list, with frequently used programs sorted on top
- * Auto starting terminal applications in a terminal
-
-## SSH launcher
-
-![SSH Launcher](https://davatorium.github.io/rofi/images/rofi/ssh-dialog.png)
-
-Quickly `ssh` into remote machines. Parses `~/.ssh/config` to find hosts.
-
-## Script mode
-
-Loads external scripts to add modes to **Rofi**, for example a file-browser.
-
-```
-rofi  -show fb -modi fb:../Examples/rofi-file-browser.sh
+# Fedora
+dnf install rofi
 ```
 
-## COMBI mode
-
-Combine multiple modes in one view. This is especially useful when merging the window and run mode into one view.
-Allowing to quickly switch to an application, either by switching to it when it is already running or starting it.
-
-Example to combine Desktop run and the window switcher:
++ Then, clone this repository
 
 ```
-rofi -combi-modi window,drun -show combi -modi combi
+# 1. Go in rofi's config folder
+cd ~/.config/rofi
+
+# 2. Clone this repo
+git clone https://github.com/adi1090x/rofi.git
+
+# 3. Make sure the scripts are executables
+cd rofi && chmod +x scripts/*
+
+# 4. Copy necessary files to the right location
+cp -r bin scripts themes config.rasi ~/.config/rofi
+
+# 5. Clean up rofi's config folder
+cd .. && rm -r rofi
+
+# 6. Call the scripts (from the scripts folder)
+cd scripts
+./backlight.sh
+
+# (or from anywhere)
+. ~/.config/rofi/scripts/backlight.sh
 ```
 
-## dmenu replacement
+### Applets
 
-![DMENU replacement (running teiler)](https://davatorium.github.io/rofi/images/rofi/dmenu-replacement.png)
+![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/applets.gif) <br />
 
-Drop in dmenu replacement. (Screenshot shows rofi used by
-[teiler](https://github.com/carnager/teiler) ).
+> Created & Tested With Rofi Version : **1.5.4**
 
-**Rofi** features several improvements over dmenu to improve usability. There is the option to add
-an extra message bar (`-mesg`), pre-entering of text (`-filter`), or selecting entries based on a
-pattern (`-select`). Also highlighting (`-u` and `-a`) options and modi to force user to select one
-provided option (`-only-match`). In addition to this, rofi's dmenu mode can select multiple lines and
-write them to stdout.
+- **Apps:** Shortcuts for most used applications.
+- **Backlight:** Display and adjust screen brightness.
+- **Battery:** Display battery percentage & charging-discharging status with dynamic icons.
+- **MPD:** Control the song play through [mpd](https://github.com/MusicPlayerDaemon/).
+- **Network:** Display Online-Offline status with dynamic icons. 
+- **Powermenu:** A classic power menu, with Uptime.
+- **Quicklinks:** Bookmarks shortcuts for most used sites.
+- **Screenshot:** Take screenshots using [scrot](https://github.com/dreamer/scrot).
+- **Time:** Display Time, Day & Date.
+- **Volume:** Display and control volume with dynamic icons for mute status.
 
-# Usage
+<details><summary>Previews</summary>
 
-If used with `-show [mode]`, rofi will immediately open in the specified [mode].
+|Powermenu|Time|Network|Battery|
+|--|--|--|--|
+|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/applets/1.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/applets/2.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/applets/3.gif)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/applets/4.gif)|
 
-If used with `-dmenu`, rofi will use data from STDIN to let the user select an option.
+|Volume|Backlight|Screenshot|MPD|
+|--|--|--|--|
+|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/applets/5.gif)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/applets/6.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/applets/7.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/applets/8.png)|
 
-For example, to show a run dialog:
+|Quicklinks|Apps|
+|--|--|
+|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/applets/9.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/applets/10.png)|
 
-  `rofi -show run`
+</details>
 
-To show a ssh dialog:
+### Menus
 
-  `rofi -show ssh`
+![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/menus.gif) <br />
 
-## dmenu
+> Created & Tested With Rofi Version : **1.5.4**
 
-If rofi is passed the `-dmenu` option, or run as `dmenu` (ie, /usr/bin/dmenu is symlinked to /usr/bin/rofi),
-it will use the data passed from STDIN.
+- **Apps:** Shortcuts for most used applications.
+- **Backlight:** Display and adjust screen brightness.
+- **Battery:** Display battery percentage & charging-discharging status with dynamic icons.
+- **MPD:** Control the song play through [mpd](https://github.com/MusicPlayerDaemon/).
+- **Network:** Display SSID, IP, Online-Offline status with dynamic icons. 
+- **Powermenu:** A classic power menu, shows Uptime, CPU & Memory usages.
+- **Quicklinks:** Bookmarks shortcuts for most used sites.
+- **Screenshot:** Take screenshots using [scrot](https://github.com/dreamer/scrot).
+- **Time:** Display Time, Day, Month, Date.
+- **Volume:** Display and control volume with dynamic icons for mute status.
+
+<details><summary>Previews</summary>
+
+|Powermenu|Time|Network|Battery|
+|--|--|--|--|
+|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/menus/1.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/menus/2.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/menus/3.gif)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/menus/4.gif)|
+
+|Volume|Backlight|Screenshot|MPD|
+|--|--|--|--|
+|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/menus/5.gif)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/menus/6.gif)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/menus/7.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/menus/8.png)|
+
+|Quicklinks|Apps|
+|--|--|
+|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/menus/9.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/menus/10.png)|
+
+</details>
+
+### Android Style Sidemenus
+
+> Created & Tested With Rofi Version : **1.5.4**
+
+- **Apps:** Shortcuts for most used applications.
+- **Backlight:** Adjust screen brightness.
+- **MPD:** Control the song play through [mpd](https://github.com/MusicPlayerDaemon/).
+- **Powermenu:** Android like Powermenu.
+- **Quicklinks:** Bookmarks shortcuts for most used sites.
+- **Screenshot:** Take screenshots using [scrot](https://github.com/dreamer/scrot).
+- **Volume:** Control volume with dynamic icons for mute status.
+
+![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/android.gif) <br />
+
+### Colorschemes
+
+The files are stored in *~/.config/rofi/themes/colorschemes*.
+To change the active colorscheme simply change the import line in *~/.config/rofi/themes/colors.rasi*.
+
+If you wish to change the colorscheme for only one specific applet/menu, you can add the line below after `@import "colors.rasi"` to the *~/.config/rofi/themes/<menu-name>.rasi* or *~/.config/rofi/themes/menu/<menu-name>.rasi* file.
+
+``` css
+@import "colorschemes/<colorscheme-name>.rasi"
+```
+
+<details><summary>Previews</summary>
+
+|Material Dark|Material Light|
+|--|--|
+|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/colors/md.gif)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/colors/ml.gif)|
+
+|Adapta-Nokto|Adapta|Arc-Dark|Arc|
+|--|--|--|--|
+|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/colors/2.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/colors/1.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/colors/4.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/colors/3.png)|
+
+|adwaita|gruvbox|dark|armchair|darkpink|
+|--|--|--|--|--|
+|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/colors/5.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/colors/6.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/colors/7.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/colors/8.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/colors/9.png)|
+
+|fresh|inside|party|sirin|minimo|
+|--|--|--|--|--|
+|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/colors/10.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/colors/11.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/colors/12.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/colors/13.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/colors/14.png)|
+
+</details>
+
+### App Launchers
+
+A collection for application launcher, works with `rofi` from official arch repo.
+
+> Created & Tested With Rofi Version : **1.5.4**
+
+***Stuff you need***
++ *Icon pack* : [Papirus](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
++ *Fonts* : [Fantasque & Iosevka](https://github.com/adi1090x/rofi/blob/master/fonts)
++ *Compton_tryone* : For Blur, [Here](https://github.com/tryone144/compton)
+
+***Styling***
++ Edit the `launcher.sh` file and change the **style** variable to set the style you like.
++ Edit the selected `.rasi` file and *uncomment* the desired color/style. 
+
+<details><summary>Previews</summary>
+
+An Album is [Here](https://www.buymeacoffee.com/p/45388).
+
+> Click on thumbnails to enlarge the image/gif.
+
+|Icons|Icons Rainbow|Icons Fullscreen|Icons Sidebar|Icons Popup|Simple Dark|
+|--|--|--|--|--|--|
+|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers/1.gif)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers/2.gif)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers/3.gif)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers/4.gif)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers/5.gif)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers/6.gif)|
+
+|Grid|Grid Round|Grid Full|Purple|Rainbow Sidebar|Rainbow|
+|--|--|--|--|--|--|
+|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers/7.gif)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers/8.gif)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers/10.gif)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers/9.gif)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers/11.gif)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers/12.gif)|
+
+</details>
+
+### App Launchers (rofi-git)
+
+> These themes/configs only works with `rofi-git(aur)`. You need to build latest rofi if you're not using *archlinux*.
+>
+> Tested With Rofi Version : **1.5.4-76-gca067234**
+
+***Stuff you need***
++ *Latest Rofi* : [Here...](https://github.com/davatorium/rofi)
++ *Icon pack* : [Papirus](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme) & [Breeze](https://github.com/KDE/breeze-icons)
++ *Fonts* : [Fantasque](https://github.com/adi1090x/rofi/blob/master/fonts) & [Noto Sans](https://github.com/googlefonts/noto-fonts)
++ *For Blur* : [Compton Tryone](https://github.com/tryone144/compton)
+
+***Styling***
++ Edit the `launcher.sh` file and change the **style** variable to set the style you like.
++ Edit the selected `.rasi` file and *uncomment* the desired color/style. 
+
+<details><summary>Previews</summary>
+
+|Blurry|Launchpad|
+|--|--|
+|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git/1.png)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git/6.png)|
+
+|Slingshot Light|Slingshot Dark|
+|--|--|
+|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git/7.png)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git/8.png)|
+
+|Simple Menu Light|Simple Menu Dark|Krunner Light|Krunner Dark|
+|--|--|--|--|
+|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git/2.png)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git/3.png)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git/4.png)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git/5.png)|
+
+|AppDrawer Light|AppDrawer Dark|AppFolder Light|AppFolder Dark|
+|--|--|--|--|
+|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git/14.png)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git/15.png)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git/16.png)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git/17.png)|
+
+|Row Light|Row Dark|Column Light|Column Dark|
+|--|--|--|--|
+|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git/20.png)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git/21.png)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git/18.png)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git/19.png)|
+
+|RowCenter Light|RowCenter Dark|Row dock|Row Dropdown|
+|--|--|--|--|
+|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git/22.png)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git/23.png)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git/26.png)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git/27.png)|
+
+|Screen Light|Screen Dark|
+|--|--|
+|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git/24.png)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git/25.png)|
+
+|GnomeDo Classic|GnomeDo Light|GnomeDo Black|GnomeDo Transparent|
+|--|--|--|--|
+|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git/9.png)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git/10.png)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git/11.png)|![gif](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_git/13.png)|
+
+</details>
+
+### Rofi Ribbon Launchers (rofi-git)
+
+> These themes/configs only works with `rofi-git(aur)`. You need to build latest rofi if you're not using *archlinux*.
+>
+> Tested With Rofi Version : **1.5.4-76-gca067234**
+
+<!-- ![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/ribbon.gif) -->
+
+***Stuff you need***
++ *Latest Rofi* : [Here...](https://github.com/davatorium/rofi)
++ *Icon pack* : [Oranchelo](https://github.com/OrancheloTeam/oranchelo-icon-theme) (You can use any other icon pack as well)
++ *Fonts* : [Fantasque](https://github.com/adi1090x/rofi/blob/master/fonts)
+
+***Styling***
++ Edit the `launcher.sh` file and change the **style** variable to set the style you like.
++ Edit `~/.config/rofi/launchers-ribbon/styles/colors.rasi` file and *set* the desired color/style. 
+
+<details><summary>Previews</summary>
+
+|Ribbon Top|Ribbon Top Round|Ribbon Top Single|Ribbon Top Single Round|
+|--|--|--|--|
+|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/1.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/2.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/3.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/4.png)|
+
+|Ribbon Left|Ribbon Left Round|Ribbon Left Single|Ribbon Left Single Round|
+|--|--|--|--|
+|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/5.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/6.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/7.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/8.png)|
+
+|Ribbon Bottom|Ribbon Bottom Round|Ribbon Bottom Single|Ribbon Bottom Single Round|
+|--|--|--|--|
+|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/9.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/10.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/11.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/12.png)|
+
+|Ribbon Right|Ribbon Right Round|
+|--|--|
+|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/13.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/14.png)|
+
+|Ribbon Full Left|Ribbon Full Bottom|Ribbon Full Top|Ribbon Full Right|
+|--|--|--|--|
+|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/17.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/16.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/15.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/18.png)|
+
+<details><summary>Styles</summary>
+
+|Bluish|Berry|Nordic|Nightly|
+|--|--|--|--|
+|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/styles/A.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/styles/B.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/styles/C.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/styles/D.png)
+
+|Gotham|Mask|Faded|Cocoa|
+|--|--|--|--|
+|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/styles/E.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/styles/F.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/styles/G.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/styles/H.png)
+
+|Cocoa|Nordic|Nightly|Berry|
+|--|--|--|--|
+|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/styles/I.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/styles/J.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/styles/K.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_ribbon/styles/L.png)
+
+</details>
+
+</details>
+
+### Rofi Slates (rofi-git)
+
+> These themes/configs only works with `rofi-git(aur)`. You need to build latest rofi if you're not using *archlinux*.
+>
+> Tested With Rofi Version : **1.5.4-76-gca067234**
+
+<!-- ![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/slate.gif) -->
+
+***Stuff you need***
++ *Latest Rofi* : [Here...](https://github.com/davatorium/rofi)
++ *Icon pack* : [Tela](https://github.com/vinceliuice/Tela-icon-theme) (You can use any other icon pack as well)
++ *Fonts* : [Fantasque](https://github.com/adi1090x/rofi/blob/master/fonts)
+
+***Styling***
++ Edit `~/.config/rofi/launchers-slate/styles/colors.rasi` file and set the `color` you like.
++ Edit the selected `color file` and *uncomment* the desired color/style.
+
+<details><summary>Previews</summary>
+
+|Amber|Amber Alt|Blue|Blue Alt|Blue-gray|Blue-gray Alt|Brown|Brown Alt|
+|--|--|--|--|--|--|--|--|
+|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/1.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/2.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/3.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/4.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/5.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/6.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/7.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/8.png)|
+
+|Cyan|Cyan Alt|Deep-orange|Deep-orange Alt|Deep-purple|Deep-purple Alt|Green|Green Alt|
+|--|--|--|--|--|--|--|--|
+|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/9.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/10.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/11.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/12.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/13.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/14.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/15.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/16.png)|
+
+|Indigo|Indigo Alt|Light-blue|Light-blue Alt|Light-green|Light-green Alt|Lime|Lime Alt|
+|--|--|--|--|--|--|--|--|
+|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/17.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/18.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/19.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/20.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/21.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/22.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/23.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/24.png)|
+
+|Orange|Orange Alt|Pink|Pink Alt|Purple|Purple Alt|Red|Red Alt|
+|--|--|--|--|--|--|--|--|
+|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/25.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/26.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/27.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/28.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/29.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/30.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/31.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/32.png)|
+
+|Teal|Teal Alt|Yellow|Yellow Alt|Gray|Gray Alt|Black|Black Alt|
+|--|--|--|--|--|--|--|--|
+|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/33.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/34.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/35.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/36.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/37.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/38.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/39.png)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/launchers_slate/40.png)|
+
+</details>
+
+### Rofi Powermenu (rofi-git)
+
+> These themes/configs only works with `rofi-git(aur)`. You need to build latest rofi if you're not using *archlinux*.
+>
+> Tested With Rofi Version : **1.5.4-110-g1a9e6450**
+
+***Stuff you need***
++ *Latest Rofi* : [Here...](https://github.com/davatorium/rofi)
++ *Fonts* : [Fantasque](https://github.com/adi1090x/rofi/blob/master/fonts)
++ *Fonts* : [Feather](https://github.com/adi1090x/rofi/blob/master/fonts)
+
+***Styling***
++ Edit the `~/.config/rofi/power/powermenu.sh` file and change the **style** variable to set the style you like.
++ Edit `~/.config/rofi/power/styles/colors.rasi` file and set the `color-scheme` you like.
+
+<details><summary>Previews</summary>
+
+|Style 1|Style 2|Style 3|
+|--|--|--|
+|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/powermenu/A.gif)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/powermenu/B.gif)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/powermenu/C.gif)|
+
+|Style 4|Style 5|Style 6|
+|--|--|--|
+|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/powermenu/D.gif)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/powermenu/E.gif)|![img](https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/powermenu/F.gif)|
+
+</details>
+
+## Tips
+
+### Simple way to execute applets/menus
+
+You can copy links from `bin` folder to your `$PATH` variable so that entering `appsmenu` in the terminal (or executing this command) will summon the appsmenu. you can do it by -
+
+``` bash
+mkdir ~/.bin
+cp -r ~/.config/rofi/bin/* ~/.bin
+# Add folder to the $PATH variable
+echo "PATH=$PATH:~/.bin" >> ~/.profile
+```
+
+**Note:** after doing this your `$PATH` variable won't be updated, so you will need to log out and then back in to be able to summon the menus this way.
+
+### Use With polybar
+
+This is a simple example on how can you use these applets with polybar by adding modules and giving full paths of selected applet like *~/.config/rofi/scripts/backlight.sh* or simply name if you followed the above method -
+
+```bash
+[module/backlight]
+type = custom/text
+content = 
+
+content-background = ${color.bg}
+content-foreground = ${color.cyan}
+
+click-left = ~/.config/rofi/scripts/backlight.sh
+
+## Or...
+
+[module/backlight]
+type = custom/text
+content = 
+
+content-background = ${color.bg}
+content-foreground = ${color.green}
+
+click-left = backlightmenu
 
 ```
-~/scripts/my_script.sh | rofi -dmenu
-echo -e "Option #1\nOption #2\nOption #3" | rofi -dmenu
+
+Here's How it looks on polybar with different colorschemes for each applet...
+
+<p align="left">
+  <img src=https://raw.githubusercontent.com/adi1090x/files/master/rofi/images/bar.gif>
+</p>
+
+### Use With i3
+
+You can call the scripts by giving their fulls paths like *~/.config/rofi/scripts/<script-name>.sh* or follow method above to call the menus in one word. Then add these lines to your i3 config file:
+
+```bash
+set $mod Mod4
+set $Alt Mod1
+bindsym $mod+m exec --no-startup-id mpdmenu
+bindsym $mod+n exec --no-startup-id networkmenu
+bindsym $mod+p exec --no-startup-id ~/.config/rofi/scripts/powermenu.sh
+#etc
 ```
 
-In both cases, rofi will output the user's selection to STDOUT.
+### Use With Openbox
 
-## Switching Between Modi
+Same thing can be done with openbox by adding these lines to rc.xml file:
 
-Type `Shift-/Left/Right` to switch between active modi.
+```xml
+    <keybind key="W-m">
+      <action name="Execute">
+        <command>~/.config/rofi/scripts/mpd.sh</command>
+      </action>
+    </keybind>
+    <!-- Or -->
+    <keybind key="W-m">
+      <action name="Execute">
+        <command>mpdmenu</command>
+      </action>
+    </keybind>
+    <!-- etc -->
+```
 
+### Support This Project
+<p align="left">
+<a href="https://www.paypal.me/adi1090x" target="_blank"><img alt="undefined" src="https://img.shields.io/badge/paypal-adi1090x-blue?style=for-the-badge&logo=paypal"></a>
+<a href="https://www.buymeacoffee.com/adi1090x" target="_blank"><img alt="undefined" src="https://img.shields.io/badge/BuyMeAcoffee-adi1090x-orange?style=for-the-badge&logo=buy-me-a-coffee"></a>  
+<a href="https://ko-fi.com/adi1090x" target="_blank"><img alt="undefined" src="https://img.shields.io/badge/KoFi-adi1090x-red?style=for-the-badge&logo=ko-fi"></a>  
+</p>
 
-## Key bindings
-
-| Key                                  | Action                                                             |
-|:-------------------------------------|:-------------------------------------------------------------------|
-|`Ctrl-v, Insert`                      | Paste from clipboard |
-|`Ctrl-Shift-v, Shift-Insert`          | Paste primary selection |
-|`Ctrl-w`                              | Clear the line |
-|`Ctrl-u`                              | Delete till the start of line |
-|`Ctrl-a`                              | Move to beginning of line |
-|`Ctrl-e`                              | Move to end of line |
-|`Ctrl-f, Right`                       | Move forward one character |
-|`Alt-f, Ctrl-Right`                   | Move forward one word |
-|`Ctrl-b, Left`                        | Move back one character |
-|`Alt-b, Ctrl-Left`                    | Move back one word |
-|`Ctrl-d, Delete`                      | Delete character |
-|`Ctrl-Alt-d`                          | Delete word |
-|`Ctrl-h, Backspace, Shift-Backspace`  | Backspace (delete previous character) |
-|`Ctrl-Alt-h`                          | Delete previous word |
-|`Ctrl-j,Ctrl-m,Enter`                 | Accept entry |
-|`Ctrl-n,Down`                         | Select next entry |
-|`Ctrl-p,Up`                           | Select previous entry |
-|`Page Up`                             | Go to the previous page |
-|`Page Down`                           | Go to the next page |
-|`Ctrl-Page Up`                        | Go to the previous column |
-|`Ctrl-Page Down`                      | Go to the next column |
-|`Ctrl-Enter`                          | Use entered text as a command (in `ssh/run modi`) |
-|`Shift-Enter`                         | Launch the application in a terminal (in run mode) |
-|`Shift-Enter`                         | Return the selected entry and move to the next item while keeping Rofi open. (in dmenu) |
-|`Shift-Right`                         | Switch to the next modi. The list can be customized with the -modi option. |
-|`Shift-Left`                          | Switch to the previous modi. The list can be customized with the -modi option. |
-|`Ctrl-Tab`                            | Switch to the next modi. The list can be customized with the -modi option. |
-|`Ctrl-Shift-Tab`                      | Switch to the previous modi. The list can be customized with the -modi option. |
-|`Ctrl-space`                          | Set selected item as input text. |
-|`Shift-Del`                           | Delete entry from history. |
-|`grave`                               | Toggle case sensitivity. |
-|`Alt-grave`                           | Toggle levenshtein sort. |
-|`Alt-Shift-S`                         | Take a screenshot and store it in the Pictures directory. |
-
-For the full list of key bindings, see: `rofi -show keys` or `rofi -help`.
-
-# Configuration
-
-There are currently three methods of setting configuration options:
-
- * Local configuration. Normally, depending on XDG, in `~/.config/rofi/config`. This uses the Xresources format.
- * Xresources: A method of storing key values in the Xserver. See
-   [here](https://en.wikipedia.org/wiki/X_resources) for more information.
- * Command line options: Arguments are passed to **Rofi**.
-
-A distribution can ship defaults in `/etc/rofi.conf`.
-
-The Xresources options and the command line options are aliased. To define option X set:
-
-    `rofi.X: value`
-
-In the Xresources file. To set/override this from command line pass the same key
-prefixed with '-':
-
-    `rofi -X value`
-
-To get a list of available options formatted as Xresources entries, run:
-
-    `rofi -dump-Xresources`
-
-or in a more readable format:
-
-    `rofi -help`
-
-The configuration system supports the following types:
-
- * String
- * Integer (signed and unsigned)
- * Char
- * Boolean
-
-The Boolean option has a non-default command line syntax, to enable option X you do:
-
-    `rofi -X`
-
-to disable it:
-
-    `rofi -no-X`
-
-# Manpage
-
-For more detailed information, please see the [manpage](doc/rofi.1.markdown), the [wiki](https://github.com/davatorium/rofi/wiki), or the [forum](https://reddit.com/r/qtools/).
-
-# Installation
-
-Please see the [installation guide](https://github.com/davatorium/rofi/blob/next/INSTALL.md) for instructions on how to
-install **Rofi**.
-
-# What is rofi not?
-
-Rofi is not:
-
- * A preview application. In other words, it will not show a (small) preview of images, movies or other files.
- * A UI toolkit.
- * A library to be used in other applications.
- * An application that can support every possible use-case. It tries to be generic enough to be usable by everybody.
-   Specific functionality can be added using scripts.
- * Just a dmenu replacement. The dmenu functionality is a nice 'extra' to **rofi**, not its main purpose.
+### Bottom Line
++ PR's, Issues, Contributions are welcome.
++ No PR's for color-schemes, they always endup looking similar.
++ Have Fun!
